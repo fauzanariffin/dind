@@ -9,8 +9,12 @@ RUN apt-get update -qq && apt-get install -qqy \
     lxc \
     iptables
     
-# Install Docker from Docker Inc. repositories.
-RUN curl -sSL https://get.docker.com/ubuntu/ | sh
+# Install Docker v1.7 from binary
+#RUN curl -sSL https://get.docker.com/ubuntu/ | sh
+RUN apt-get install -y wget
+RUN wget http://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_1.7.0-0~trusty_amd64.deb
+RUN dpkg -i docker-engine_1.7.0-0~trusty_amd64.deb
+RUN apt-get -f install
 
 # Install the magic wrapper.
 ADD ./wrapdocker /usr/local/bin/wrapdocker
